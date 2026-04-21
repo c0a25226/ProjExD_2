@@ -36,7 +36,7 @@ def gameover(screen: pg.Surface) -> None:
     """
     go = pg.Surface((WIDTH, HEIGHT))#背景
     pg.draw.rect(go, (0, 0, 0), (0, 0, WIDTH, HEIGHT)) 
-    go.set_alpha(150)
+    go.set_alpha(150)#背景の透過
     
     fontgo = pg.font.Font(None, 80)#文字のフォント
     txtgo = fontgo.render("Game Over", True, (255, 255, 255))
@@ -80,7 +80,7 @@ def main():
         if kk_rct.colliderect(bb_rct):#コウカトンと爆弾の衝突判定(オブジェクト同士の判定)
             gameover(screen)
             return
-        
+
         screen.blit(bg_img, [0, 0]) 
 
         key_lst = pg.key.get_pressed()
@@ -104,11 +104,11 @@ def main():
         if check_bound(kk_rct) != (True, True):#壁にぶつかった時に停止(マイナスで打ち消し)
             kk_rct.move_ip(-sum_mv[0], -sum_mv[1])
         
-
         screen.blit(kk_img, kk_rct)
         bb_rct.move_ip(vx, vy)  # 爆弾の移動処理
         screen.blit(bb_img, bb_rct)  # 爆弾を表示
         x , y=check_bound(bb_rct)
+        #爆弾の移動処理
         if not x:
             vx *= -1
         if not y:
