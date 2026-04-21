@@ -2,6 +2,7 @@ import os
 import sys
 import random
 import pygame as pg
+import time
 
 
 WIDTH, HEIGHT = 1100, 650
@@ -12,6 +13,8 @@ DELTA = {
     pg.K_RIGHT: (+5, 0),  # 右
 }
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+
 def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
     """
     画面の範囲の判定
@@ -24,6 +27,26 @@ def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
     if rct.top < 0 or HEIGHT < rct.bottom:#縦方向を超える時の判定
         y = False
     return x , y
+
+
+def gameover(screen: pg.Surface) -> None:
+    """
+    ゲームオーバー画面を表示し、5秒間停止させる関数
+    引数 screen: 画面Surface 
+    """
+    go = pg.Surface((WIDTH, HEIGHT))
+    pg.draw.rect(go, (0, 0, 0), (0, 0, WIDTH, HEIGHT)) 
+    go.set_alpha(150)
+    fontgo = pg.font.Font(None, 80)
+    txtgo = fontgo.render("Game Over", True, (255, 255, 255))
+    kk_img = pg.image.load("fig/8.png")
+    go.blit(txtgo, [300, 200])
+    go.blit(kk_img, [300, 200])
+    go.blit(kk_img, [650, 200])
+    screen.blit(go, [0, 0])
+    pg.display.update()
+    time.sleep(5)
+    return
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
@@ -50,7 +73,7 @@ def main():
                 return
         
         if kk_rct.colliderect(bb_rct):#コウカトンと爆弾の衝突判定(オブジェクト同士の判定)
-        
+            gameover(screen)
             return
         
         screen.blit(bg_img, [0, 0]) 
