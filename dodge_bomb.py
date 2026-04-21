@@ -34,19 +34,24 @@ def gameover(screen: pg.Surface) -> None:
     ゲームオーバー画面を表示し、5秒間停止させる関数
     引数 screen: 画面Surface 
     """
-    go = pg.Surface((WIDTH, HEIGHT))
+    go = pg.Surface((WIDTH, HEIGHT))#背景
     pg.draw.rect(go, (0, 0, 0), (0, 0, WIDTH, HEIGHT)) 
     go.set_alpha(150)
-    fontgo = pg.font.Font(None, 80)
+    
+    fontgo = pg.font.Font(None, 80)#文字のフォント
     txtgo = fontgo.render("Game Over", True, (255, 255, 255))
-    kk_img = pg.image.load("fig/8.png")
+    
+    kk_img = pg.image.load("fig/8.png")#コウカトン(泣)
+    
     go.blit(txtgo, [300, 200])
     go.blit(kk_img, [300, 200])
     go.blit(kk_img, [650, 200])
     screen.blit(go, [0, 0])
-    pg.display.update()
-    time.sleep(5)
+    
+    pg.display.update()#ロード
+    time.sleep(5)#5秒停止
     return
+
 
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
