@@ -42,7 +42,7 @@ def main():
         if key_lst[pg.K_RIGHT]:
             sum_mv[0] += 5
         """
-        for key, mv in DELTA.items():
+        for key, mv in DELTA.items():  #移動処理を簡略化 
             if key_lst[key]:
                 sum_mv[0] += mv[0]
                 sum_mv[1] += mv[1]
